@@ -105,7 +105,8 @@ def notify_jellyfin(path):
 
 def translate_video(video, lang, track=None, out_dir=None, dry=False):
     base = os.path.splitext(os.path.join(out_dir, os.path.basename(video)) if out_dir else video)[0]
-    target = f"{base}.{lang}.srt"
+    # pt-BR is written as ".por.srt": with ".pt-BR.srt" some players read "BR" as Breton, and a "por" preference didn't pick it
+    target = f"{base}.{'por' if lang in ('pt-BR', 'pt') else lang}.srt"
     if os.path.exists(target):
         print(f"already there: {os.path.basename(target)}")
         return False
@@ -156,7 +157,7 @@ def sonarr_candidates(url, days, lang):
             if since and dt.datetime.fromisoformat(f["dateAdded"].replace("Z", "+00:00")) < since:
                 continue
             base = os.path.splitext(f["path"])[0]
-            if any(os.path.exists(f"{base}{suf}") for suf in (f".{lang}.srt", f".{code}.srt", f".{lang}.ass")):
+            if any(os.path.exists(f"{base}{suf}") for suf in (f".{lang}.srt", f".{code}.srt", f".{lang}.ass", ".pt-BR.srt")):
                 continue
             yield f["path"]
 

@@ -1,7 +1,7 @@
 # traduz-legenda
 
 Traduz a **legenda em inglês embutida** num vídeo para **português do Brasil** (ou outro idioma) com um modelo de linguagem e
-grava `<vídeo>.pt-BR.srt` ao lado do arquivo. Feito para anime, que quase sempre sai primeiro só com legenda em inglês:
+grava `<vídeo>.por.srt` ao lado do arquivo (com `.pt-BR.srt` alguns apps mostram "bretão"). Feito para anime, que quase sempre sai primeiro só com legenda em inglês:
 traduz na hora e, quando sair a versão legendada ou dublada em PT-BR, o Sonarr troca o arquivo.
 
 - **Barato:** com o DeepSeek, um episódio de anime custa de **US$ 0,002 a 0,008** (testado no nosso servidor).
@@ -15,7 +15,7 @@ traduz na hora e, quando sair a versão legendada ou dublada em PT-BR, o Sonarr 
 
 ```sh
 export LLM_API_KEY=...            # chave do DeepSeek (ou de outra API compatível com OpenAI)
-./traduz_legenda.py "Episodio 01.mkv"                     # grava "Episodio 01.pt-BR.srt"
+./traduz_legenda.py "Episodio 01.mkv"                     # grava "Episodio 01.por.srt"
 ./traduz_legenda.py *.mkv --lang es                       # outro idioma
 ./traduz_legenda.py "Episodio 01.mkv" --dry-run           # só mostra a faixa escolhida e quantas falas
 
@@ -42,7 +42,7 @@ lembre que **"DUAL" no Nyaa quer dizer japonês + inglês**, não português.
 ---
 
 **English:** translates the English subtitle embedded in a video into Brazilian Portuguese (or `--lang es|fr|it|de|pt`) with any
-OpenAI-compatible API (DeepSeek by default, about US$ 0.002-0.008 per anime episode) and writes `<video>.<lang>.srt`. Picks the
+OpenAI-compatible API (DeepSeek by default, about US$ 0.002-0.008 per anime episode) and writes `<video>.por.srt` (pt-BR) or `<video>.<lang>.srt`. Picks the
 English dialogue track (text, not forced, not signs/songs), sends numbered batches and validates the answer, keeps honorifics.
 Optional Sonarr mode for anime without a Portuguese track, and Jellyfin notification. Python 3 standard library + ffmpeg. MIT.
 
